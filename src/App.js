@@ -12,20 +12,37 @@ class App extends Component {
       location: {
         latitude: null,
         longitude: null,
-      }
+      },
+      weatherData: null
     }
   }
 
   componentDidMount() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        //console.log("latitude: " + position.coords.latitude + "\nlongitude: " + position.coords.longitude);
-        this.setState({
-          location: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.logitude
-          }
-        });
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+        const url = "https://fcc-weather-api.glitch.me/api/current?lon=" + longitude + "&lat=" + latitude;
+
+        fetch(url)
+          .then(response => {
+            if (response.status >= 400) {
+              throw new Error("Bad response from server");
+            }
+            return response.json();
+          })
+          .then(data => {
+            //console.log(data.weather);
+            //console.log(latitude);
+            //console.log(longitude);
+            this.setState({ 
+              weatherData: data.weather,
+              location: {
+                latitude: latitude,
+                longitude: longitude
+              }
+            });
+          });
       });
     } else {
       console.log("Cannot fetch location data. Will use coordinates 0, 0");
@@ -42,8 +59,8 @@ class App extends Component {
     return (
       <div className="">
         <h1 className="text-center">Xavier's Weather App</h1>
-        <UserLocation position={this.state.position}/>
-        <UserWeather position={this.state.position}/>
+        <UserLocation position={this.state.location}/>
+        <UserWeather weatherData={this.state.weatherData}/>
       </div>
     );
   }
