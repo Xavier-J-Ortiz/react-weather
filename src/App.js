@@ -13,7 +13,11 @@ class App extends Component {
         latitude: null,
         longitude: null,
       },
-      weatherData: null
+      weatherData: null,
+      countryData: null,
+      cityData: null,
+      countryData: null,
+      tempData: null
     }
   }
 
@@ -35,8 +39,14 @@ class App extends Component {
             //console.log(data.weather);
             //console.log(latitude);
             //console.log(longitude);
+            //console.log(data);
             this.setState({ 
-              weatherData: data.weather,
+              weatherData: data.weather[0].main,
+              weatherIcon: data.weather[0].icon,
+              iconDescription: data.weather[0].description,
+              cityData: data.name,
+              countryData: data.sys.country,
+              tempData: data.main.temp,
               location: {
                 latitude: latitude,
                 longitude: longitude
@@ -59,8 +69,8 @@ class App extends Component {
     return (
       <div className="">
         <h1 className="text-center">Xavier's Weather App</h1>
-        <UserLocation position={this.state.location}/>
-        <UserWeather weatherData={this.state.weatherData}/>
+        <UserLocation city={ this.state.cityData } country={ this.state.countryData }/>
+        <UserWeather weatherData={ this.state.weatherData } tempData={ this.state.tempData } icon={ this.state.weatherIcon } iconDescription={ this.state.iconDescription }/>
       </div>
     );
   }

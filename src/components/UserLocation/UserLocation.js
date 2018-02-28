@@ -6,9 +6,8 @@ class UserLocation extends Component {
   }
 
   render() {
-    console.log(this.props.position)
     return (
-      <p className="text-center"> This is the user location </p>
+      <h3 className="text-center"> The user is located in {this.props.city}, {this.props.country} </h3>
     )
 
   }

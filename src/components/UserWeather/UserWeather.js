@@ -9,9 +9,13 @@ class UserWeather extends Component {
   }
 
   render() {
-   console.log(this.props.weatherData);
+    //console.log(this.props.weatherIcon);
     return (
-      <p className="text-center"> This is the user's weather </p>
+      <div>
+        <h3 className="text-center"> {Math.round(this.props.tempData) + " degrees C"} </h3>
+        <h3 className="text-center"> {this.props.weatherData} </h3>
+        <img className="mx-auto d-block" src={this.props.icon} alt={this.props.iconDescription}/>
+      </div>
     )
 
   }
