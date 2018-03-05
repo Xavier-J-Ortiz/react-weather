@@ -15,3 +15,7 @@ h3 {
 .weather {
   padding-top: 2rem;
 }
+
+.tempUnit {
+  color: aqua;
+}

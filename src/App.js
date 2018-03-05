@@ -6,6 +6,7 @@ import UserLocation from './components/UserLocation/UserLocation.js'
 import UserWeather from './components/UserWeather/UserWeather.js'
 
 class App extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -17,12 +18,13 @@ class App extends Component {
       countryData: null,
       cityData: null,
       countryData: null,
-      tempData: null,
-      isCelcius: true
+      isCelcius: true,
+      fahrenheit: null,
+      celcius: null
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const longitude = position.coords.longitude;
@@ -47,7 +49,8 @@ class App extends Component {
               iconDescription: data.weather[0].description,
               cityData: data.name,
               countryData: data.sys.country,
-              tempData: data.main.temp,
+              fahrenheit: data.main.temp * 1.8 + 32,
+              celcius: data.main.temp,
               location: {
                 latitude: latitude,
                 longitude: longitude
@@ -66,12 +69,14 @@ class App extends Component {
     }  
   }
 
+  changeTempUnits = () => { this.setState( { isCelcius: !this.state.isCelcius } ) }
+
   render() {
     return (
       <div className="weather">
         <h1 className="text-center">Xavier's Weather App</h1>
         <UserLocation city={ this.state.cityData } country={ this.state.countryData }/>
-        <UserWeather weatherData={ this.state.weatherData } tempData={ this.state.tempData } icon={ this.state.weatherIcon } iconDescription={ this.state.iconDescription }/>
+        <UserWeather weatherData={ this.state.weatherData } celcius={ this.state.celcius } fahrenheit={ this.state.fahrenheit } icon={ this.state.weatherIcon } iconDescription={ this.state.iconDescription } isCelcius={ this.state.isCelcius } changeTempUnits={ this.changeTempUnits }/>
       </div>
     );
   }
