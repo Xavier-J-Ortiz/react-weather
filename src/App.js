@@ -39,10 +39,6 @@ class App extends Component {
             return response.json();
           })
           .then(data => {
-            //console.log(data.weather);
-            //console.log(latitude);
-            //console.log(longitude);
-            //console.log(data);
             this.setState({ 
               weatherData: data.weather[0].main,
               weatherIcon: data.weather[0].icon,

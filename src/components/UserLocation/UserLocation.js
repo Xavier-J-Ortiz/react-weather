@@ -6,8 +6,9 @@ class UserLocation extends Component {
   }
 
   render() {
+    let country = this.props.country;
     return (
-      <h3 className="text-center"> The user is located in {this.props.city}, {this.props.country} </h3>
+      <h3 className="text-center"> The user is located in {this.props.city}, {country} </h3>
     )
 
   }
