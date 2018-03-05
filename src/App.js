@@ -17,7 +17,8 @@ class App extends Component {
       countryData: null,
       cityData: null,
       countryData: null,
-      tempData: null
+      tempData: null,
+      isCelcius: true
     }
   }
 
@@ -67,7 +68,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="">
+      <div className="weather">
         <h1 className="text-center">Xavier's Weather App</h1>
         <UserLocation city={ this.state.cityData } country={ this.state.countryData }/>
         <UserWeather weatherData={ this.state.weatherData } tempData={ this.state.tempData } icon={ this.state.weatherIcon } iconDescription={ this.state.iconDescription }/>
